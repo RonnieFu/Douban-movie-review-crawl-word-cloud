@@ -8,20 +8,6 @@ import csv
 from bs4 import BeautifulSoup
 import os
 from urllib import request
-# #outputfile name
-# output_filename = 'douban_movie_xiaohonghua.csv'
-#
-# # url请求文件头
-# header = {'Content-Type': 'text/html; charset=utf-8',
-#           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'}
-# # 登录cookies
-# Cookie = {
-#     'Cookie': 'bid=T54NrOIukao; douban-fav-remind=1; gr_user_id=00c5b72c-804c-442b-8049-0ea9f30ac738; _vwo_uuid_v2=D51E1BF67FB014C20B0F2939563E43F4E|ce1c24487b1f7b4178eddd3620b0d410; __gads=ID=0fbe250e94a7533d-22f18ad6f5c40037:T=1606792955:RT=1606792955:R:S=ALNI_MbH9DRfj9pl6GCJ31AR_FPtnEpvHQ; viewed="10769749_2314275"; ll="118267"; ap_v=0,6.0; __utmz=30149280.1609913918.26.26.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; __utmc=30149280; __utma=30149280.284457910.1592972128.1609598478.1609913918.26; dbcl2="229867810:+IPucCNAsjM"; ck=M-_w; push_noty_num=0; push_doumail_num=0; __utmv=30149280.22986; __utmb=30149280.9.10.1609913918'
-# }
-# # 构造请求网址
-# url_1 = "https://movie.douban.com/subject/35096844/comments?start="
-# url_2 = "&limit=20&sort=new_score&status=P"
-# # 循环抓取多页，循环变量start,0,20,40...
 
 def crawl(output_filename,header,Cookie,url_1,url_2,sleep_time):
     i = 0
