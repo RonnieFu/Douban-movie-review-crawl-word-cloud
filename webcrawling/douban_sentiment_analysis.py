@@ -5,22 +5,23 @@ from snownlp import SnowNLP
 def sentiment_analysis(output_filename):
     df_1 = pd.read_csv(output_filename, header=None, usecols=[1, 2, 3, 4, 5])
     df_1.columns = ['uname', 'comment', 'star', 'title', 'support']
-    # Ìî²¹¿ÕÖµ
+    # å¡«è¡¥ç©ºå€¼
     df_1['comment'].fillna(" ",inplace=True)
     df_1['star'] = df_1['star'].astype(str)
     df_1['star'] = df_1['star'].str.replace("allstar", "")
     df_1['star'] = df_1['star'].str.replace("0", "")
-    df_1['star'] = df_1['star'].apply(lambda x: 3 if len(x) > 1 else x)
+    df_1['star'] = df_1['star'].apply(lambda x: 3 if len(x) > 1 or eval(x)> 5 else x)
+
     # df_1['star']=df_1['star'].str.replace("33","3")
     df_1['star'].fillna(3, inplace=True)
-    # ¶Á×¥È¡µÄcsvÎÄ¼ş£¬±êÌâÔÚµÚÈıÁĞ£¬ĞòºÅÎª2
+    # è¯»æŠ“å–çš„csvæ–‡ä»¶ï¼Œæ ‡é¢˜åœ¨ç¬¬ä¸‰åˆ—ï¼Œåºå·ä¸º2
     df = pd.read_csv(output_filename, header=None, usecols=[2])
 
-    # ½«dataframe×ª»»ÎªList
+    # å°†dataframeè½¬æ¢ä¸ºList
     contents = df.values.tolist()
-    # Êı¾İ³¤¶È
+    # æ•°æ®é•¿åº¦
 
-    # ¶¨Òå¿ÕÁĞ±í´æ´¢Çé¸Ğ·ÖÖµ
+    # å®šä¹‰ç©ºåˆ—è¡¨å­˜å‚¨æƒ…æ„Ÿåˆ†å€¼
     score = []
     for content in contents:
         try:
@@ -28,14 +29,14 @@ def sentiment_analysis(output_filename):
             # print(s.summary())
             score.append(s.sentiments)
         except:
-            #TODO ¼ì²é´íÎóÒª°ÑÕâÀï¼ÓÒ»¸öÊä³ö
+            #TODO æ£€æŸ¥é”™è¯¯è¦æŠŠè¿™é‡ŒåŠ ä¸€ä¸ªè¾“å‡º
             #print("")
-            #×Ô¶¯Ìî²¹Îª
+            #è‡ªåŠ¨å¡«è¡¥ä¸º
             score.append(0.5)
     data2 = pd.DataFrame(score)
     # data2.to_csv('sentiment.csv',header=False,index=False,mode='a+')
 
-    # ÕûÀíÁ½¸ö±í¸ñ
+    # æ•´ç†ä¸¤ä¸ªè¡¨æ ¼
     df_1['sentiment_score'] = data2
 
     df_1.to_csv(output_filename, index=False)
